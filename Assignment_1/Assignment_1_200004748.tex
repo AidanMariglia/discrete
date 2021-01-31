@@ -195,9 +195,41 @@ strong induction.
 
   \bigskip
 
-  \textcolor{blue}{\textbf{Put your name, MacID, and date here.}}
+  \textcolor{blue}{\textbf{Aidan, 200004748, 01/30/20}}
 
-  \textcolor{blue}{\textbf{Put your solution here.}}
+  \begin{proof}
+  Let $P(n) \equiv \sum^{n}_{i = 0} i * \mname{fact}(i) = \mname{fact}
+  (n+1) - 1$ We will prove $P(n)$ for all $n \in \mathbb{N}$ by weak 
+  induction.
+
+  \medskip
+
+  \emph{Base case}: $n = -1$. We must show $P(-1)$.
+
+  \begin{align*}
+  &\phantom{{}=} \sum^{-1}_{i=0} i * \mname{fact}(i) & \pnote{LHS of $P(-1)$}\\
+  &= 0 * \mname{fact}(0) & \pnote{Definition of $\sum$}\\
+  &= 0 & \pnote{arithmetic}\\
+  &= 1 - 1 & \pnote{arithmetic}\\
+  &= \mname{fact}(0) - 1 & \pnote{definition of \mname{fact}}\\
+  &= \mname{fact}(-1 + 1) - 1 & \pnote{arithmetic; RHS of P(-1)}\\
+  \end{align*}
+  So $P(0)$ holds.
+
+  \medskip
+
+  \emph{Induction Step}: $n \ge 0$. Assume $P(n)$. We must show $P(n + 1)$.
+  \begin{align*}
+  &\phantom{{}=} \sum^{n+1}_{i=0} i * \mname{fact}(i) & \pnote{LHS of $P(n + 1)$}\\
+  &= \sum^{n}_{i=0} i * \mname{fact}(i) + (n + 1) * \mname{fact}(n + 1)  & \pnote{Definition of $\sum$}\\
+  &= \mname{fact}(n + 1) - 1 + (n + 1) * \mname{fact}(n + 1) & \pnote{induction hypothesis: $P(n)$}\\
+  &= \mname{fact}(n + 1) - 1 + (n + 1) * \mname{fact}(n + 1) & \pnote{induction hypothesis: $P(n)$}\\
+  &= ((n + 1) * \mname{fact}(n + 1) + \mname{fact}(n + 1)) - 1 & \pnote{arithmetic}\\
+  &= ((n + 1) + 1) * \mname{fact}(n + 1) - 1 & \pnote{arithmetic}\\
+  &= \mname{fact}((n + 1) + 1) - 1 & \pnote{Definition of $\mname{fact}$; RHS of $P(n+1)$}
+  \end{align*}
+  So $P(n + 1)$ holds.
+  \end{proof}
 
   \bigskip
 
@@ -208,9 +240,15 @@ strong induction.
 
   \bigskip
 
-  \textcolor{blue}{\textbf{Put your name, MacID, and date here.}}
+  \textcolor{blue}{\textbf{Aidan Mariglia, 200004748, 01/30/20}}
 
-  \textcolor{blue}{\textbf{Put your solution here.}}
+  \emph{Lemma}: Prove that if $n \in \mathbb{N}$ $\land$ $ n = 3k$, $ \mname{fib}(n) $
+  is even.
+
+  \begin{proof}
+  \emph{Base case}: k = 1, 
+  
+  \end{proof}
 
 \end{enumerate}
 
