@@ -195,7 +195,7 @@ strong induction.
 
   \bigskip
 
-  \textcolor{blue}{\textbf{Aidan, 200004748, 01/30/20}}
+  \textcolor{blue}{\textbf{Aidan, mariglia, 01/30/20}}
 
   \begin{proof}
   Let $P(n) \equiv \sum^{n}_{i = 0} i * \mname{fact}(i) = \mname{fact}
@@ -204,15 +204,16 @@ strong induction.
 
   \medskip
 
-  \emph{Base case}: $n = -1$. We must show $P(-1)$.
+  \emph{Base case}: $n = 0$. We must show $P(0)$.
 
   \begin{align*}
-  &\phantom{{}=} \sum^{-1}_{i=0} i * \mname{fact}(i) & \pnote{LHS of $P(-1)$}\\
+  &\phantom{{}=} \sum^{0}_{i=0} i * \mname{fact}(i) & \pnote{LHS of $P(0)$}\\
   &= 0 * \mname{fact}(0) & \pnote{Definition of $\sum$}\\
   &= 0 & \pnote{arithmetic}\\
   &= 1 - 1 & \pnote{arithmetic}\\
-  &= \mname{fact}(0) - 1 & \pnote{definition of \mname{fact}}\\
-  &= \mname{fact}(-1 + 1) - 1 & \pnote{arithmetic; RHS of P(-1)}\\
+  &= \mname{fact}(0) * 1 - 1 & \pnote{definition of \mname{fact}}\\
+  &= \mname{fact}(1) - 1 & \pnote{definition of \mname{fact}}\\
+  &= \mname{fact}(0 + 1) - 1 & \pnote{arithmetic; RHS of $P(0)$}\\
   \end{align*}
   So $P(0)$ holds.
 
@@ -223,12 +224,15 @@ strong induction.
   &\phantom{{}=} \sum^{n+1}_{i=0} i * \mname{fact}(i) & \pnote{LHS of $P(n + 1)$}\\
   &= \sum^{n}_{i=0} i * \mname{fact}(i) + (n + 1) * \mname{fact}(n + 1)  & \pnote{Definition of $\sum$}\\
   &= \mname{fact}(n + 1) - 1 + (n + 1) * \mname{fact}(n + 1) & \pnote{induction hypothesis: $P(n)$}\\
-  &= \mname{fact}(n + 1) - 1 + (n + 1) * \mname{fact}(n + 1) & \pnote{induction hypothesis: $P(n)$}\\
   &= ((n + 1) * \mname{fact}(n + 1) + \mname{fact}(n + 1)) - 1 & \pnote{arithmetic}\\
   &= ((n + 1) + 1) * \mname{fact}(n + 1) - 1 & \pnote{arithmetic}\\
   &= \mname{fact}((n + 1) + 1) - 1 & \pnote{Definition of $\mname{fact}$; RHS of $P(n+1)$}
   \end{align*}
   So $P(n + 1)$ holds.
+
+  \medskip
+
+  Therefore $P(n)$ holds for all $n \in \mathbb{N}$ by weak induction.
   \end{proof}
 
   \bigskip
@@ -240,15 +244,101 @@ strong induction.
 
   \bigskip
 
-  \textcolor{blue}{\textbf{Aidan Mariglia, 200004748, 01/30/20}}
+  \textcolor{blue}{\textbf{Aidan Mariglia, mariglia, 01/30/20}}
 
-  \emph{Lemma}: Prove that if $n \in \mathbb{N}$ $\land$ $ n = 3k$, $ \mname{fib}(n) $
+ \begin{proof}
+  Let $P(n)$ hold iff $\mname{fib}(n)$ is even if $n = 3k$ for some
+  $k \in \mathbb{N}$, is odd if $n = 3k+1$ for some $k \in \mathbb{N}$
+  and is odd if $n = 3k+1$ for some $k \in \mathbb{N}$.
+
+  \bigskip
+
+  \emph{Case 1}: $n = 3k$ for some $k \in \mathbb{N}$. Prove $\mname{fib}(n)$
   is even.
 
-  \begin{proof}
-  \emph{Base case}: k = 1, 
+  \emph{Base case}: $k = 1$, $n = 3$. We must show $P(3)$.
+
+  \begin{align*}
+  &\phantom{{}=} \mname{fib}(3) & \pnote{LHS of $P(3)$}\\
+  &= \mname{fib}(2) + \mname{fib}(1) & \pnote{Definition of $\mname{fib}$}\\
+  &= \mname{fib}(1) + \mname{fib}(0) + \mname{fib}(1) & \pnote{Definitino of $\mname{fib}$}\\
+  &= 1 + 0 + 1 & \pnote{Definition of $\mname{fib}$}\\
+  &= 2 & \pnote{arithmetic; $2$ is even}
+  \end{align*}
+  So $P(3)$ holds.
+
+  \emph{Induction Step}: $n = 3k$ for some $k \in \mathbb{N}$. Assume $P(3),P(6),\dots,P(n - 3)$ hold. We must
+  show $P(n)$ holds.
+
+  \begin{align*}
+  &\phantom{{}=} \mname{fib}(n) & \pnote{LHS of $P(N)$}\\
+  &= \mname{fib}(3k) & \pnote{$n = 3k$, thereom definition}\\
+  &= \mname{fib}(3k - 1) + \mname{fib}(3k-2) & \pnote{defintion of $\mname{fib}$}\\
+  &= \mname{fib}(3k - 2) + \mname{fib}(3k-3) + \mname{fib}(3k-2) & \pnote{defintion of $\mname{fib}$}\\
+  &= 2 * \mname{fib}(3k - 2) + \mname{fib}(3k-3) & \pnote{arithmetic}\\
+  \end{align*}
+
+  The product of any number and $2$ is always even, therefore $2 * \mname{fib}(3k-2)$
+  is even. $\mname{fib}(3k-3)$ matches our induction hypothesis and therefore is also
+  even. Since the sum of two even numbers is also always even, $P(n)$ holds.
+
+  \newpage
+
+  \emph{Case 2}: $n = 3k + 1$ for some $k \in \mathbb{N}$. Prove
+  $\mname{fib}(n)$ is odd.
   
-  \end{proof}
+  \emph{Base case}: $k = 0$, $n = 1$. We must show $P(1)$.
+
+  \begin{align*}
+  &\phantom{{}=} \mname{fib}(1) & \pnote{LHS of $P(1)$}\\
+  &= 1 & \pnote{definition of $\mname{fib}$; $1$ is odd}
+  \end{align*}
+  So $P(1)$ holds.
+
+  \emph{Induction Step}: $n = 3k + 1$ for some $k \in \mathbb{N}$. Assume $P(1),P(4),\dots,P(n - 3)$ hold. We must
+  show $P(n)$ holds.
+
+  \begin{align*}
+  &\phantom{{}=}  \mname{fib}(n) & \pnote{LHS of $P(4)$}\\
+  &= \mname{fib}(3k + 1) & \pnote{$n = 3k + 1$, case definition}\\
+  &= \mname{fib}(3k) + \mname{fib}(3k -1) & \pnote{defintion of $\mname{fib}$}\\
+  &= \mname{fib}(3k) + \mname{fib}(3k - 3) + \mname{fib}(3k - 2) & \pnote{definition of $\mname{fib}$}\\
+  &= \mname{fib}(3k) + \mname{fib}(3k - 3) + \mname{fib}(3k + 1 - 3) & \pnote{arithmetic}\\
+  &= \mname{fib}(3k) + \mname{fib}(3k - 3) + \mname{fib}(3(k -1) + 1) & \pnote{arithmetic}\\
+  &= \mname{fib}(3k) + \mname{fib}(3k - 3) + \mname{fib}(3k + 1) & \pnote{arithmetic, k is arbitrary}\\
+  \end{align*}
+  $\mname{fib}(3k)$ and $\mname{fib}(3k - 3)$ are both even as per the result
+  proven in case 1. The sum of 2 even numbers is still even, therefore $\mname{fib}(3k) + \mname{fib}(3k - 3)$
+  is even. $\mname{fib}(3k + 1)$ is odd as per the induction hypothesis. The sum 
+  of an even number and an odd number is odd. Therefore $P(n)$ holds.
+
+ \newpage
+
+ \emph{Case 3}: $n = 3k + 2$ for some $k \in \mathbb{N}$. Prove $\mname{fib}(n)$
+ is odd.
+ \emph{Base case}: $k = 0$, $n = 2$. We must show $P(2)$.
+
+ \begin{align*}
+ &\phantom{{}=} \mname{fib}(2) & \pnote{RHS of $P(2)$}\\
+ &= \mname{fib}(1) + fib(0) & \pnote{definition of $\mname{fib}$}\\
+ &= 1 + 0 & \pnote{definition of $\mname{fib}$}\\
+ &= 1 & \pnote{arithmetic; 1 is odd}
+ \end{align*}
+ So $P(2)$ holds.
+
+ \emph{Induction step}: $n = 3k + 2$ for some $k \in \mathbb{N}$. Assume
+ $P(2),P(5)\dots,P(n-3)$ hold. We must show $P(n)$ holds.
+
+ \begin{align*}
+ &\phantom{{}=} \mname{fib}(n) & \pnote{LHS of $P(n)$}\\
+ &= \mname{fib}(3k + 2) & \pnote{$n = 3k + 2$, case definition}\\
+ &= \mname{fib}(3k) + \mname{fib}(3k + 1) & \pnote{definition of $\mname{fib}$}
+ \end{align*}
+
+ $\mname{fib}(3k)$ is even as per case 1. $\mname{fib}(3k+1)$ is odd 
+ as per case 2. The sum of an even number and an odd number is odd.
+ Therefore $P(n)$ holds.
+ \end{proof}
 
 \end{enumerate}
 
