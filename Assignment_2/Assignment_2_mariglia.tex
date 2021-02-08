@@ -130,9 +130,54 @@ Let \mname{SimpleTree} be the inductive
   Prove that, for all $t \in \mname{SimpleTree}$, \[\mname{leaves}(t) \le
   \mname{branches}(t) + 1.\]
 
-  \textcolor{blue}{\textbf{Put your name, MacID, and date here.}}
+  \textcolor{blue}{\textbf{Aidan Mariglia, mariglia, 07/02/20}}
 
-  \textcolor{blue}{\textbf{Put your solution here.}}
+  \begin{proof}
+  Let $P(t) \equiv \mname{leaves}(t) \leq \mname{branches}(t) + 1$. 
+
+  \medskip
+
+  \emph{Base case}: $t = \mname{Leaf}(n)$ with $n \in \mathbb{N}$.
+
+  \begin{align*}
+    &\phantom{{}=}  \mname{leaves}(\mname{Leaf}(n)) & \pnote{LHS of $P(t)$}\\
+    &= 1 &\pnote{Definition of $\mname{leaves}$}\\
+    &\leq 1 &\pnote{Definition of $\leq$}\\
+    &= 0 + 1 & \pnote{arithmetic}\\
+    &=\mname{branches}(\mname{Leaf}(n)) + 1 & \pnote{Definition of $\mname{branches}$; RHS of $P(n)$}
+  \end{align*}
+  So $P(\mname{Leaf}(n))$ holds.
+
+  \medskip
+
+  \emph{Induction step}: \\
+  \emph{Case one:} 
+  $t = \mname{Branch1($t_1$)}$, assume $P(t_1)$ holds, We must show
+  $P(t)$ holds.
+
+  \begin{align*}
+    &\phantom{{}=} \mname{leaves}(\mname{Branch1}(t_1)) &\pnote{LHS of $P(t)$}\\
+    &= \mname{leaves}(t_1) &\pnote{Definition of $\mname{leaves}$}\\
+    &\leq \mname{branches}(t_1) + 1 &\pnote{Induction hypothesis}\\
+    &\leq \mname{branches}(t_1) + 1 + 1 &\pnote{Definition of $\leq$}\\
+    &= \mname{branches}(\mname{Branch1}(t_1)) + 1 &\pnote{Definition of $\mname{branches}$; RHS of $P(t)$}
+  \end{align*}
+
+  \medskip
+  \emph{Case two:}
+  $t = \mname{Branch2}(t_1, t_2)$, assume $P(t_1)$ and $P(t_2)$ holds,
+  We must show $P(t)$ holds.
+
+  \begin{align*}
+  &\phantom{{}=} \mname{leaves}(\mname{Branch2}(t_1, t_2)) &\pnote{LHS of $P(t)$}\\
+  &= \mname{leaves}(t_1) + \mname{leaves}(t_2) &\pnote{Definition of $\mname{leaves}$}\\
+  &\leq \mname{branches}(t_1) + 1 + \mname{branches}(t_2) + 1 &\pnote{Induction hypothesis}\\
+  &= 1 + \mname{branches}(t_1) + \mname{branches}(t_2) + 1 &\pnote{arithmetic}\\
+  &= \mname{branches}(\mname{Branch2}(t_1, t_2)) + 1 & \pnote{Definition of $\mname{branches}$; RHS of $P(t)$}
+  \end{align*}
+  
+  So $P(t)$ holds for all $t \in \mname{SimpleTree}$
+  \end{proof}
 
   \bigskip
 
@@ -260,11 +305,120 @@ Let \mname{SimpleTree} be the inductive
 
   \bigskip
 
-  \textcolor{blue}{\textbf{Put your name, MacID, and date here.}}
+  \textcolor{blue}{\textbf{Aidan Mariglia, mariglia, 07/02/20}}
 
-  \textcolor{blue}{\textbf{Put your solution here.}}
+  \begin{proof}
+  Let $P(n)  \equiv \mname{val}(\mname{add}(u, v)) = \mname{val}(u) + \mname{val}(v)$
+  for all $u, v \in \mname{BinNum}$ such that $n = \mname{len}(u) + \mname{len}(v)$.
 
+  \medskip
+
+  \emph{Base case:}
+  $n = 2$
+  
+  \emph{Case 1:}
+  $u = \mname{Zero}$, $v = \mname{One}$
+
+  \begin{align*}
+  &\phantom{{}=} \mname{val}(\mname{add}(\mname{Zero}, \mname{One})) & \pnote{LHS of $P(2)$}\\
+  &= \mname{val}(\mname{One}) & \pnote{Defintion of $\mname{add}$}\\
+  &= \mname{val}(\mname{One}) + 0 & \pnote{arithmetic}\\
+  &= \mname{val}(\mname{One}) + \mname{val}(\mname{Zero}) &\pnote{Defintion of $\mname{val}$; RHS of $P(2)$}
+  \end{align*}
+
+  \emph{Case 2:}
+  $u = \mname{One}$, $v = \mname{Zero}$
+
+  \begin{align*}
+    &\phantom{{}=} \mname{val}(\mname{add}(\mname{One}, \mname{Zero})) & \pnote{LHS of $P(2)$}\\
+    &= \mname{val}(\mname{One}) & \pnote{Defintion of $\mname{add}$}\\
+    &= 0 + \mname{val}(\mname{One}) & \pnote{arithmetic}\\
+    &= \mname{val}(\mname{Zero}) + \mname{val}(\mname{One}) &\pnote{Defintion of $\mname{val}$; RHS of $P(2)$}
+  \end{align*}
+
+  \newpage
+
+  \emph{Case 3:}
+  $u = \mname{One}$, $v = \mname{One}$
+
+  \begin{align*} 
+    &\phantom{{}=} \mname{val}(\mname{add}(\mname{One}, \mname{One})) & \pnote{LHS of $P(2)$}\\
+    &= \mname{val}(\mname{joinZero}(\mname{One})) & \pnote {Defintion of $\mname{add}$}\\
+    &= 2 * \mname{val}(\mname{One}) & \pnote{Defintion of $\mname{val}$}\\
+    &= \mname{val}(\mname{One}) + \mname{val}(\mname{One}) & \pnote{arithmetic; RHS of $P(2)$}\\
+  \end{align*}
+
+  \emph{Case 4:}
+  $u = \mname{Zero}$, $v = \mname{Zero}$
+
+  \begin{align*}
+    &\phantom{{}=} \mname{val}(\mname{add}(\mname{Zero}, \mname{Zero})) & \pnote{LHS of $P(2)$}\\
+    &= \mname{val}(\mname{Zero}) & \pnote{Defintion of $\mname{add}$}\\
+    &= \mname{val}(\mname{Zero}) + 0 & \pnote{arithmetic}\\
+    &= \mname{val}(\mname{Zero}) + \mname{val}(\mname{Zero}) &\pnote{Defintion of $\mname{val}$; RHS of $P(2)$}
+  \end{align*}
+
+  So $P(2)$ holds.
+
+  \medskip
+
+  \emph{Induction step:}
+  Assume $P(2)$, $P(3)$, \dots, $P(n-1)$. We will prove $P(n)$.
+  \end{proof}
+
+  \emph{Case 1:}
+  $u \in \mname{BinNum}$, $v = \mname{Zero}$.
+
+  \begin{align*}
+    &\phantom{{}=} \mname{val}(\mname{add}(u, \mname{Zero})) &\pnote{LHS of $P(n)$}\\
+    &= \mname{val}(u) & \pnote{Defintion of $\mname{add}$}\\
+    &= \mname{val}(u) + 0 & \pnote{arithmetic}\\
+    &= \mname{val}(u) + \mname{val}(\mname{Zero}) & \pnote{Defintion of $\mname{val}$; RHS of $P(n)$}\\
+  \end{align*}
+
+  \emph{Case 2:}
+  $u = \mname{Zero}$, $v \in \mname{BinNum}$
+
+  \begin{align*}
+    &\phantom{{}=} \mname{val}(\mname{add}(\mname{zero}, v)) & \pnote{LHS of $P(n)$}\\
+    &= \mname{val}(v) & \pnote{Definition of $\mname{add}$}\\
+    &= 0 + \mname{val}(v) & \pnote{arithmetic}\\
+    &= \mname{val}(\mname{Zero})  & \pnote{Defintion of $\mname{val}$; RHS of $P(n)$}
+  \end{align*}
+
+  \emph{Case 3:}
+  $\mname{len}(\mname{JoinZero}(u)) = n - 1$, $v = \mname{One}$.
+
+  \begin{align*}
+    &\phantom{{}=} \mname{val}(\mname{add}(\mname{JoinZero}(u), \mname{One})) &\pnote{LHS of $P(n)$}\\
+    &= \mname{val}(\mname{JoinOne}(u)) & \pnote{Definition of $\mname{add}$}\\
+    &= 2 * \mname{val}(u) + 1 & \pnote{Defintiion of $\mname{val}$}\\
+    &= \mname{val}(\mname{JoinZero(u)}) + 1 & \pnote{Definition of $\mname{val}$}\\
+    &= \mname{val}(\mname{JoinZero(u)}) + \mname{val}(\mname{One}) & \pnote{Defintion of $\mname{val}$; RHS of $P(n)$}
+  \end{align*}
+
+  \emph{Case 4:}
+  $u = \mname{One}$, $\mname{len}(\mname{JoinZero}(v)) = n - 1$
+
+  \begin{align*}
+    &\phantom{{}=} \mname{val}(\mname{add}(\mname{One}, \mname{JoinZero}(v))) & \pnote{LHS of $P(n)$}\\
+    &= \mname{val}(\mname{JoinOne}(v)) & \pnote{Definition of $\mname{add}$}\\
+    &= 2 * \mname{val}(u) + 1 & \pnote{Definition of $\mname{val}$}\\
+    &= \mname{val}(\mname{JoinZero}(v)) + 1 & \pnote{Defintion of $\mname{val}$}\\
+    &= \mname{val}(\mname{One}) + \mname{val}(\mname{JoinZero}(v)) & \pnote{Definition of val, arithmetic; RHS of $P(n)$}
+  \end{align*}
+
+  \emph{Case 5:}
+  $\mname{len}(\mname{JoinOne}(u)) = n - 1$, $\mname{One}$
+
+  \begin{align*}
+    &\phantom{{}=} \mname{val}(\mname{add}(\mname{JoinOne}(u), \mname{One})) & \pnote{LHS of $P(n)$}\\
+    &= \mname{val}(\mname{JoinZero}(\mname{add}(u, \mname{One}))) & \pnote{Definition of $\mname{add}$}\\
+    &= 2 * \mname{val}(\mname{add}(u, \mname{One})) & \pnote{Defintion of $\mname{val}$}\\
+    &= \mname{val}(\mname{JoinOne}(u)) + \mname{val}(\mname{One}) & \pnote{RHS}
+  \end{align*}
 \ee
+
 
 \end{document}
 
