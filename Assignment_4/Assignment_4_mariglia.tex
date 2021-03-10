@@ -1,0 +1,373 @@
+\documentclass[11pt,fleqn]{article}
+
+\setlength {\topmargin} {-.15in}
+\setlength {\textheight} {8.6in}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{url}
+\usepackage{color}
+\usepackage{tikz}
+\usetikzlibrary{automata,positioning,arrows}
+
+\setlength {\topmargin} {-.15in}
+\setlength {\textheight} {8.6in}
+
+\renewcommand{\labelenumi}{\theenumi.}
+\renewcommand{\labelenumii}{\theenumii.}
+\renewcommand{\labelenumiii}{\theenumiii.}
+\newcommand{\be}{\begin{enumerate}}
+	\newcommand{\ee}{\end{enumerate}}
+\newcommand{\bi}{\begin{itemize}}
+	\newcommand{\ei}{\end{itemize}}
+\newcommand{\bc}{\begin{center}}
+	\newcommand{\ec}{\end{center}}
+\newcommand{\bsp}{\begin{sloppypar}}
+	\newcommand{\esp}{\end{sloppypar}}
+\newcommand{\mname}[1]{\mbox{\sf #1}}
+\newcommand{\sB}{\mbox{$\cal B$}}
+\newcommand{\sC}{\mbox{$\cal C$}}
+\newcommand{\sF}{\mbox{$\cal F$}}
+\newcommand{\sM}{\mbox{$\cal M$}}
+\newcommand{\sP}{\mbox{$\cal P$}}
+\newcommand{\sV}{\mbox{$\cal V$}}
+\newcommand{\set}[1]{{\{ #1 \}}}
+\newcommand{\Neg}{\neg}
+\ifdefined \And
+\renewcommand{\And}{\wedge}
+\else
+\newcommand{\And}{\wedge}
+\fi
+\newcommand{\Or}{\vee}
+\newcommand{\Implies}{\Rightarrow}
+\newcommand{\Iff}{\LeftRightarrow}
+\newcommand{\Forall}{\forall}
+\newcommand{\ForallApp}{\forall\,}
+\newcommand{\Forsome}{\exists}
+\newcommand{\ForsomeApp}{\exists\,}
+\newcommand{\mdot}{\mathrel.}
+\newcommand{\eps}{\epsilon}
+\newcommand{\pnote}[1]{\langle \mbox{#1} \rangle}
+
+
+\begin{document}
+
+\begin{center}
+
+{\large \textbf{COMPSCI/SFWRENG 2FA3}}\\[2mm]
+{\large \textbf{Discrete Mathematics with Applications II}}\\[2mm]
+{\large \textbf{Winter 2021}}\\[8mm]
+{\huge \textbf{Assignment 4}}\\[6mm]
+{\large \textbf{Dr.~William M. Farmer and Dr.~Mehrnoosh Askarpour}}\\[2mm]
+{\large \textbf{McMaster University}}\\[6mm]
+{\large Revised: February 23, 2021}
+
+\end{center}
+
+\medskip
+
+Assignment 4 consists of two problems.  You must write your solutions
+to the problems using LaTeX.
+
+Please submit Assignment~4 as two files,
+\texttt{Assignment\_4\_\emph{YourMacID}.tex} and
+\texttt{Assignment\_4\_\emph{YourMacID}.pdf}, to the Assignment~4
+folder on Avenue under Assessments/Assignments.
+\texttt{\emph{YourMacID}} must be your personal MacID (written without
+capitalization).  The \texttt{Assignment\_4\_\emph{YourMacID}.tex}
+file is a copy of the LaTeX source file for this assignment
+(\texttt{Assignment\_4.tex} found on Avenue under
+Contents/Assignments) with your solution entered after each problem.
+The \texttt{Assignment\_4\_\emph{YourMacID}.pdf} is the PDF output
+produced by executing
+
+\begin{itemize}
+
+  \item[] \texttt{pdflatex Assignment\_4\_\emph{YourMacID}}
+
+\end{itemize}
+
+This assignment is due \textbf{Sunday, February 28, 2021 before
+  midnight.}  You are allow to submit the assignment multiple times,
+but only the last submission will be marked.  \textbf{Late submissions
+  and files that are not named exactly as specified above will not be
+  accepted!}  It is suggested that you submit your preliminary
+\texttt{Assignment\_4\_\emph{YourMacID}.tex} and
+\texttt{Assignment\_4\_\emph{YourMacID}.pdf} files well before the
+deadline so that your mark is not zero if, e.g., your computer fails
+at 11:50 PM on February 28.
+
+\textbf{Although you are allowed to receive help from the
+  instructional staff and other students, your submission must be your
+  own work.  Copying will be treated as academic dishonesty! If any of
+  the ideas used in your submission were obtained from other students
+  or sources outside of the lectures and tutorials, you must
+  acknowledge where or from whom these ideas were obtained.}
+
+\newpage
+
+\subsection*{Presenting DFAs and NFAs Transition Diagrams}
+
+In this assignment you are asked to present DFAs as transition
+diagrams.  You are can do this in one of two ways.
+
+The first way is to present the diagram using the LaTeX graphics
+package TikZ.  The TikZ code can either be written by hand or
+automatically generated using the finsm system available at
+\texttt{http:finsm.io}.
+
+Here are some examples of how it can be used to create
+DFA and NFA transition diagrams that appear in the lectures slides:
+
+\begin{center}
+\begin{tikzpicture}[shorten >=1pt,node distance=2.5cm,on grid,auto] 
+   \node[state, initial, thick] (q_0)   {$q_0$}; 
+   \node[state, thick] (q_1) [right=of q_0] {$q_1$}; 
+   \node[state, thick] (q_2) [right=of q_1] {$q_2$}; 
+   \node[state, accepting, thick] (q_3) [right=of q_2] {$q_3$};
+    \path[->, thick, >=stealth] 
+    (q_0) edge [bend left, above] node {$a$} (q_1)
+          edge [loop, above] node {$b$} (q_2)
+    (q_1) edge [bend left, above] node {$a$} (q_2)
+          edge [bend left, above] node {$b$} (q_0)
+    (q_2) edge [bend left, above] node {$a$} (q_3) 
+          edge [bend left, below]  node {$b$} (q_0)
+    (q_3) edge [loop, above] node {$a,b$} (q_2); 
+\end{tikzpicture}
+\end{center}
+
+\begin{center}
+\begin{tikzpicture}[shorten >=1pt,node distance=4cm,on grid,auto] 
+   \node[state, initial, accepting, thick] (q_0)   {$q_0$}; 
+   \node[state, thick] (q_1) [right=of q_0] {$q_1$}; 
+   \node[state, thick] (q_2) [below=of q_0] {$q_2$}; 
+   \node[state, thick] (q_3) [right=of q_2] {$q_3$};
+    \path[->, thick, >=stealth] 
+    (q_0) edge [bend left, above] node {1} (q_1)
+          edge [bend left, right] node {0} (q_2)
+    (q_1) edge [bend left, below] node {1} (q_0)
+          edge [bend left, right] node {0} (q_3)
+    (q_2) edge [bend left, above] node {1} (q_3) 
+          edge [bend left, left]  node {0} (q_0)
+    (q_3) edge [bend left, below] node {1} (q_2) 
+          edge [bend left, left]  node {0} (q_1);
+\end{tikzpicture}
+\end{center}
+
+\begin{center}
+\begin{tikzpicture}[shorten >=1pt,node distance=1.7cm,on grid,auto] 
+   \node[state, initial, thick] (q_0)   {$q_0$}; 
+   \node[state, thick] (q_1) [right=of q_0] {$q_1$}; 
+   \node[state, thick] (q_2) [right=of q_1] {$q_2$}; 
+   \node[state, thick] (q_3) [right=of q_2] {$q_3$};
+   \node[state, thick] (q_4) [right=of q_3] {$q_4$};
+   \node[state, thick, accepting] (q_5) [right=of q_4] {$q_5$};
+    \path[->, thick, >=stealth] 
+    (q_0) edge [loop, above] node {0,1} (q_1)
+          edge [right, above] node {1} (q_1)
+    (q_1) edge [right, above] node {0,1} (q_2)
+    (q_2) edge [right, above] node {0,1} (q_3)
+    (q_3) edge [right, above] node {0,1} (q_4)
+    (q_4) edge [right, above] node {0,1} (q_5);
+\end{tikzpicture}
+\end{center}
+
+The second way is to take a picture of a hand-written transition
+diagram and then embed it into your assignment using the following
+LaTeX code:
+\begin{verbatim}
+\begin{center}
+\includegraphics[scale = 0.5]{diagram.jpg}
+\end{center}
+\end{verbatim}
+Please make sure your diagram is legible.
+
+\subsection*{Problems}
+
+\be
+
+  \item \textbf{[10 points]} Construct a deterministic finite
+    automaton (DFA) $A$ for the alphabet $\Sigma = \set{0,1}$ such
+    that $L(A)$ is the set of all strings $x$ in $\Sigma^*$ for which
+    $\#0(x)$ is even and $\#1(x)$ is divisible by 3.  Present $A$ as a
+    transition diagram.
+
+  \textcolor{blue}{\textbf{Aidan Mariglia, mariglia, 28/02/21}}\\
+  
+  \begin{center}
+    \begin{tikzpicture}[]
+        \node[initial,thick,state] at (-5.5,2.4125) (5c574d8f) {$q_{1}$};
+        \node[thick,state] at (-2.475,4.0625) (f5e4e523) {$q_{2}$};
+        \node[thick,state] at (1,4) (0554a69a) {$q_{3}$};
+        \node[thick,state] at (-3.5,6) (a8100bb0) {$q_{4}$};
+        \node[thick,state] at (-4.5,7.75) (df693a97) {$q_{5}$};
+        \node[thick,state] at (-5.5,9.5) (552f4a3e) {$q_{6}$};
+        \node[thick,state] at (1.75,5.75) (edcc69bb) {$q_{7}$};
+        \node[thick,state] at (2.5,7.75) (81c91149) {$q_{8}$};
+        \node[thick,accepting,state] at (3.5,9.75) (441c4c5f) {$q_{9}$};
+        \node[thick,state] at (-3.425,0.6625) (0607f7de) {$q_{10}$};
+        \node[thick,state] at (-0.25,-1.25) (579a937f) {$q_{11}$};
+        \node[thick,state] at (3,-3.25) (b06f8842) {$q_{12}$};
+        \node[thick,state] at (-4.75,-1) (d1e1261e) {$q_{13}$};
+        \node[thick,state] at (-6,-2.75) (efd87ad1) {$q_{14}$};
+        \node[thick,state] at (-1.775,-3.3) (54eb5a4a) {$q_{15}$};
+        \node[thick,state] at (-2.75,-5.25) (d68779f3) {$q_{16}$};
+        \node[thick,state] at (1.75,-5.25) (3966b6b0) {$q_{17}$};
+        \node[thick,accepting,state] at (0.5,-7.25) (994bfcd8) {$q_{18}$};
+        \path[->, thick, >=stealth]
+        (5c574d8f) edge [right,in = -151, out = 29] node {$0$} (f5e4e523)
+        (5c574d8f) edge [left,in = 140, out = -40] node {$1$} (0607f7de)
+        (f5e4e523) edge [above,in = 140, out = 33] node {$0$} (0554a69a)
+        (f5e4e523) edge [right,in = -62, out = 118] node {$1$} (a8100bb0)
+        (0554a69a) edge [below,in = -31, out = -154] node {$0$} (f5e4e523)
+        (0554a69a) edge [right,in = -113, out = 67] node {$1$} (edcc69bb)
+        (a8100bb0) edge [right,in = -60, out = 120] node {$1$} (df693a97)
+        (a8100bb0) edge [below,in = -166, out = -18] node {$0$} (edcc69bb)
+        (df693a97) edge [right,in = -60, out = 120] node {$1$} (552f4a3e)
+        (df693a97) edge [above,in = 170, out = 10] node {$0$} (81c91149)
+        (552f4a3e) edge [left,in = 171, out = -113] node {$1$} (a8100bb0)
+        (552f4a3e) edge [above,in = 172, out = 10] node {$0$} (441c4c5f)
+        (edcc69bb) edge [right,in = -111, out = 69] node {$1$} (81c91149)
+        (edcc69bb) edge [above,in = 8, out = 166] node {$0$} (a8100bb0)
+        (81c91149) edge [right,in = -117, out = 63] node {$1$} (441c4c5f)
+        (81c91149) edge [below,in = -10, out = -170] node {$0$} (df693a97)
+        (441c4c5f) edge [right,in = 27, out = -64] node {$1$} (edcc69bb)
+        (441c4c5f) edge [below,in = -5, out = -171] node {$0$} (552f4a3e)
+        (0607f7de) edge [left,in = 149, out = -31] node {$1$} (579a937f)
+        (0607f7de) edge [left,in = 51, out = -129] node {$0$} (d1e1261e)
+        (579a937f) edge [left,in = 148, out = -32] node {$1$} (b06f8842)
+        (579a937f) edge [left,in = 53, out = -127] node {$0$} (54eb5a4a)
+        (b06f8842) edge [right,in = -1, out = 117] node {$1$} (0607f7de)
+        (b06f8842) edge [left,in = 58, out = -122] node {$0$} (3966b6b0)
+        (d1e1261e) edge [left,in = 99, out = -171] node {$0$} (efd87ad1)
+        (d1e1261e) edge [left,in = 142, out = -38] node {$1$} (54eb5a4a)
+        (efd87ad1) edge [right,in = -90, out = 22] node {$0$} (d1e1261e)
+        (efd87ad1) edge [left,in = 142, out = -38] node {$1$} (d68779f3)
+        (54eb5a4a) edge [left,in = 104, out = -151] node {$0$} (d68779f3)
+        (54eb5a4a) edge [left,in = 151, out = -29] node {$1$} (3966b6b0)
+        (d68779f3) edge [left,in = 148, out = -32] node {$1$} (994bfcd8)
+        (d68779f3) edge [right,in = -76, out = 20] node {$0$} (54eb5a4a)
+        (3966b6b0) edge [left,in = 90, out = -158] node {$0$} (994bfcd8)
+        (3966b6b0) edge [right,in = -14, out = 111] node {$1$} (d1e1261e)
+        (994bfcd8) edge [right,in = -90, out = 22] node {$0$} (3966b6b0)
+        (994bfcd8) edge [left,in = -65, out = 171] node {$1$} (efd87ad1)
+        ;
+    \end{tikzpicture}
+    \end{center}
+
+  \newpage
+
+  \item \textbf{[10 points]} Let $B$ be the DFA given by the following
+    transition diagram:
+
+	\begin{center}
+	\begin{tikzpicture}[]
+		\node[thick,initial,state] (q0) {$q_{0}$};
+		\node[thick,accepting, state] (q1)  [right= of q0]{$q_{1}$};
+		\node[thick,state] (q2)  [right= of q1]{$q_{2}$};
+		\path[->, thick, >=stealth]
+		(q0) edge [bend left,above] node {$1$} (q1)
+		edge [loop above]   node         {0} ()
+		(q1) edge [bend left,above] node {$0$} (q0)
+		edge [bend left,above] node {$1$} (q2)
+		(q2) edge [bend left,above] node {$1$} (q1)
+		edge [bend left = 40, below] node {$0$} (q0)
+		;
+	\end{tikzpicture}
+        \end{center}
+
+   Prove that $L(B)$ is the language of all binary strings that end
+   with an odd number of $1$s.  Hint: Use weak induction on the length
+   of the input string, and let $P(n)$ be the statement that, for all
+   input strings $w$ with $|w| = n$, the following conditions hold:
+
+   \be
+
+     \item If $\delta^*(q_0,w) = q_0$, then $w$ is $\epsilon$ or ends
+       with $0$.
+
+     \item If $\delta^*(q_0,w) = q_1$, then $w$ ends with an odd
+       number of $1$s.
+
+     \item If $\delta^*(q_0,w) = q_2$, then $w$ ends
+       with an even number of $1$s.
+
+   \ee
+	
+   \textcolor{blue}{\textbf{Aidan Mariglia, mariglia, 28/02/21}}\\
+   
+
+   \begin{proof}
+    Let $P(n)$ hold iff statements a, b, c hold for all input strings $w$
+    with $|w| = n$.
+
+    \emph{Condition $a$:}
+    
+
+    \emph{Base case:} $n = 0$. We must show $P(0)$.\\
+    Since we know $\eps$ is the only word with length 0, and following the
+    transition diagram for the base case leaves us at $q_0$, $P(0)$ holds.
+
+    \emph{Induction step:} We must show $P(n)$.\\
+    As $\delta^*$ is defined for $q_0, q_1$, and $q_2$, all paths
+    that transition to $q_0$ require the current character to be $0$.
+    Therefore, a word of any length whose final state is $q_0$ must end in a zero,
+    therefore, $P(0)$ holds.
+
+    \emph{Condition $b$:}
+
+
+    \emph{Base case:} $n = 0$. We must show $P(0)$.\\
+    If condition b is negated we have:
+    If $\delta^*(q_0, w) != q_1$, then w ends with an odd number of
+    1s. Since we know with n = 0 the only possible value of w is $\eps$ and,
+    $\delta^*(q_0, \eps) = q_0$. So the first half of the condiiton is true.
+    $\eps$ does not have an odd number of 1s, so the second half is also true.
+    Therefore, $P(0)$ holds.
+
+    \emph{Induciton step:} We must show $P(n)$.\\
+    Since any instances of a 0 will "reset" to state $q_0$,
+    we can reason about only the trailing ones from input string $w$.
+    As previously stated, and section of 1s will always start on state
+    $q_0$. We can define the ending substring of ones as being either an
+    odd number of ones, $2n+1$, or an even number of ones $2n + 2$. Considering
+    an odd number of ones, the first 1 will cause a transition from $q_0$ to $q_1$.
+    $q_1$ and $q_2$ are in a loop that will return to its original state for every
+    two 1s that it is passed, we can reason that as a result of the loop,
+    the remainin $2n$ 1s in the substring will not cause a transition to another
+    state after they are all passed, meaning
+    that for an ending substring of $2n+1$ 1s, the final state will always be $q_1$.
+    Therefore, $P(0)$ holds.
+
+    \emph{Condition $c$:}
+
+    \emph{Base case:} $n = 0$. We must show $P(0)$\\
+    Following the same logic presented for the base case of condiiton b,
+    we can see that the only possible value of $w$ for $n = 1$ is $\eps$,
+    and $w = \eps$ results in a final state of $q_0$. Since
+    $\eps$ does not end in an even number of ones, $P(0)$ holds.
+
+    \emph{Induction step:} We must show $P(n)$.
+    There are three possible cases for the ending of $w$:
+    
+    \begin{itemize}
+      \item Any number of 0s
+      \item An odd number of 1s
+      \item An even number of 1s
+    \end{itemize}
+
+    Since we have proven that to end on state $q_0$ or $q_1$, you must
+    have any number of 0s or an even number of 1s respectfully, we can
+    deduce that the only possible end state of an input string $w$ with an
+    even number of 1s at its end is $q_2$. Therefore, $P(n)$ holds.
+
+    Q.E.D.
+
+   \end{proof}
+
+\ee
+
+\end{document}
+
+
